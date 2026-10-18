@@ -39,8 +39,8 @@ export function readSpec(inputPath: string): unknown {
 	return JSON.parse(content);
 }
 export function getApiPackageOutputPath(basePath: string): string {
-	return path.join(basePath, 'fluxer_api', 'src', 'api', 'openapi', 'openapi.json');
+	return path.join(basePath, 'makarincord_api', 'src', 'api', 'openapi', 'openapi.json');
 }
 export function getAdminOutputPath(basePath: string): string {
-	return path.join(basePath, 'fluxer_admin', 'openapi-admin.json');
+	return path.join(basePath, 'makarincord_admin', 'openapi-admin.json');
 }

@@ -24,23 +24,23 @@
 **/target/
 **/test-results.json
 
-/fluxer_app/.devserver-cache.json
-/fluxer_app/pkgs/libfluxcore/
-/fluxer_app/pkgs/libfluxwebp/
-/fluxer_app/src/features/i18n/locales/*/messages.mjs
-/fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
-/fluxer_app/src/features/theme/styles/generated/
-/fluxer_app/src/features/ui/components/SVGMasks.tsx
-/fluxer_app/src/features/ui/constants/AvatarStatusGeometry.ts
-/fluxer_gateway/priv/
+/makarincord_app/.devserver-cache.json
+/makarincord_app/pkgs/libfluxcore/
+/makarincord_app/pkgs/libfluxwebp/
+/makarincord_app/src/features/i18n/locales/*/messages.mjs
+/makarincord_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
+/makarincord_app/src/features/theme/styles/generated/
+/makarincord_app/src/features/ui/components/SVGMasks.tsx
+/makarincord_app/src/features/ui/constants/AvatarStatusGeometry.ts
+/makarincord_gateway/priv/
 
-/fluxer_desktop/native/rust/fuzz/artifacts/
-/fluxer_desktop/native/rust/fuzz/corpus/
+/makarincord_desktop/native/rust/fuzz/artifacts/
+/makarincord_desktop/native/rust/fuzz/corpus/
 /packages/markdown_parser/rust/fuzz/artifacts/
 /packages/markdown_parser/rust/fuzz/corpus/
 
-/fluxer_media_proxy/.benchmark-cache/
-/fluxer_media_proxy/bench-results/
+/makarincord_media_proxy/.benchmark-cache/
+/makarincord_media_proxy/bench-results/
 
 /app-dist-output/
 /artifacts/

@@ -15,7 +15,7 @@ interface PublicEndpointVector {
 
 const VECTORS_PATH = path.resolve(
 	path.dirname(fileURLToPath(import.meta.url)),
-	'../../../../fluxer_common/src/testdata/public_endpoint_vectors.json',
+	'../../../../makarincord_common/src/testdata/public_endpoint_vectors.json',
 );
 
 function readVectors(): Array<PublicEndpointVector> {

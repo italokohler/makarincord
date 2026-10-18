@@ -246,9 +246,9 @@ pub fn service_command(spec: &RustServiceSpec) -> Vec<String> {
             "-w".to_owned(),
             rel.join("Cargo.toml").display().to_string(),
             "-w".to_owned(),
-            "fluxer_svc/src".to_owned(),
+            "makarincord_svc/src".to_owned(),
             "-w".to_owned(),
-            "fluxer_svc/Cargo.toml".to_owned(),
+            "makarincord_svc/Cargo.toml".to_owned(),
             "-x".to_owned(),
             format!("run -p {}", spec.package),
         ];

@@ -323,14 +323,14 @@ fn set_build_channel_step() -> Result<()> {
 
 fn resolve_desktop_dir() -> Result<PathBuf> {
     let cwd = env::current_dir().context("Failed to resolve current directory")?;
-    if cwd.file_name().and_then(|value| value.to_str()) == Some("fluxer_desktop") {
+    if cwd.file_name().and_then(|value| value.to_str()) == Some("makarincord_desktop") {
         return Ok(cwd);
     }
-    if cwd.join("fluxer_desktop").is_dir() {
-        return Ok(cwd.join("fluxer_desktop"));
+    if cwd.join("makarincord_desktop").is_dir() {
+        return Ok(cwd.join("makarincord_desktop"));
     }
     Err(anyhow!(
-        "Could not resolve fluxer_desktop directory from {}",
+        "Could not resolve makarincord_desktop directory from {}",
         cwd.display()
     ))
 }
@@ -500,7 +500,7 @@ fn workdir() -> PathBuf {
 }
 
 fn desktop_dist_dir() -> PathBuf {
-    workdir().join("fluxer_desktop").join("dist-electron")
+    workdir().join("makarincord_desktop").join("dist-electron")
 }
 
 async fn windows_paths_step() -> Result<()> {
@@ -1461,7 +1461,7 @@ struct DesktopSharedAssetManifest {
 
 fn desktop_renderer_dir() -> PathBuf {
     workdir()
-        .join("fluxer_desktop")
+        .join("makarincord_desktop")
         .join("dist")
         .join("renderer")
 }
@@ -1982,7 +1982,7 @@ fn desktop_dictionary_module_name(directory_name: &str) -> Option<String> {
 
 fn desktop_dictionary_source_root() -> PathBuf {
     workdir()
-        .join("fluxer_static")
+        .join("makarincord_static")
         .join("desktop")
         .join("spellcheck")
         .join("dictionaries")
@@ -6089,7 +6089,7 @@ export const CHANNEL_DISPLAY_NAME = BUILD_CHANNEL;\n"
     #[test]
     fn desktop_macos_minimum_matches_electron_builder_config() {
         let config_path = Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../../fluxer_desktop/electron-builder.config.cjs");
+            .join("../../makarincord_desktop/electron-builder.config.cjs");
         let config = fs::read_to_string(&config_path)
             .expect("the electron-builder config should be readable");
         let declared = config

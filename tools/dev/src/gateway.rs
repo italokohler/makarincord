@@ -83,7 +83,7 @@ impl GatewayNode {
 }
 
 pub fn gateway_dir() -> PathBuf {
-    ROOT.join("fluxer_gateway")
+    ROOT.join("makarincord_gateway")
 }
 
 fn gateway_ebin_root() -> PathBuf {

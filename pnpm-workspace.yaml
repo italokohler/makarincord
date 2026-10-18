@@ -2,15 +2,15 @@
 
 packages:
   - packages/*
-  - fluxer_api
-  - fluxer_app
-  - fluxer_api/pkgs/*
-  - fluxer_app/pkgs/*
-  - '!fluxer_app/pkgs/libfluxcore'
-  - '!fluxer_app/pkgs/libfluxwebp'
-  - fluxer_desktop
-  - fluxer_admin
-  - fluxer_docs
+  - makarincord_api
+  - makarincord_app
+  - makarincord_api/pkgs/*
+  - makarincord_app/pkgs/*
+  - '!makarincord_app/pkgs/libfluxcore'
+  - '!makarincord_app/pkgs/libfluxwebp'
+  - makarincord_desktop
+  - makarincord_admin
+  - makarincord_docs
 
 allowBuilds:
   '@bufbuild/buf': true

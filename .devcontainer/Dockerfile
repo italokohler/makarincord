@@ -136,7 +136,7 @@ RUN curl --retry 5 --retry-delay 2 --retry-all-errors -fsSL https://deb.nodesour
 
 RUN python3 -m pip install --break-system-packages --no-cache-dir awscli
 
-COPY fluxer_media_proxy/tools/install-native-deps.sh /tmp/fluxer-install-native-deps.sh
+COPY makarincord_media_proxy/tools/install-native-deps.sh /tmp/fluxer-install-native-deps.sh
 RUN /tmp/fluxer-install-native-deps.sh /usr/local \
 	&& rm /tmp/fluxer-install-native-deps.sh
 

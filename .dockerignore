@@ -28,25 +28,25 @@
 **/node_modules/
 **/target/
 **/test-results.json
-/fluxer_docs/dist/
-/fluxer_docs/.astro/
-/fluxer_app/.devserver-cache.json
-/fluxer_app/pkgs/libfluxcore/
-/fluxer_app/pkgs/libfluxwebp/
-/fluxer_app/src/features/i18n/locales/*/messages.mjs
-/fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
-/fluxer_app/src/features/theme/styles/generated/
-/fluxer_app/src/features/ui/components/SVGMasks.tsx
-/fluxer_app/src/features/ui/constants/AvatarStatusGeometry.ts
-/fluxer_gateway/priv/
+/makarincord_docs/dist/
+/makarincord_docs/.astro/
+/makarincord_app/.devserver-cache.json
+/makarincord_app/pkgs/libfluxcore/
+/makarincord_app/pkgs/libfluxwebp/
+/makarincord_app/src/features/i18n/locales/*/messages.mjs
+/makarincord_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
+/makarincord_app/src/features/theme/styles/generated/
+/makarincord_app/src/features/ui/components/SVGMasks.tsx
+/makarincord_app/src/features/ui/constants/AvatarStatusGeometry.ts
+/makarincord_gateway/priv/
 
-/fluxer_media_proxy/fuzz/artifacts/
-/fluxer_media_proxy/fuzz/corpus/
+/makarincord_media_proxy/fuzz/artifacts/
+/makarincord_media_proxy/fuzz/corpus/
 /packages/markdown_parser/rust/fuzz/artifacts/
 /packages/markdown_parser/rust/fuzz/corpus/
 
-/fluxer_media_proxy/.benchmark-cache/
-/fluxer_media_proxy/bench-results/
+/makarincord_media_proxy/.benchmark-cache/
+/makarincord_media_proxy/bench-results/
 
 /app-dist-output/
 /artifacts/
@@ -56,7 +56,7 @@
 /upload_staging/
 
 
-/fluxer_desktop/
+/makarincord_desktop/
 
 **/.idea/
 **/*.iml

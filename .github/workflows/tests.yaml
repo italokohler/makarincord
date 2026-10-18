@@ -122,17 +122,17 @@ jobs:
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
-            fluxer_app/pkgs/libfluxcore
-            fluxer_app/pkgs/libfluxwebp
-            fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
+            makarincord_app/pkgs/libfluxcore
+            makarincord_app/pkgs/libfluxwebp
+            makarincord_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
           key: >-
             app-wasm-${{ runner.os }}-1.98.1-${{ hashFiles('Cargo.lock', 'tools/ci/src/app_wasm.rs',
             'tools/ci/templates/libfluxcore_wrapper.js', 'tools/ci/templates/libfluxcore_wrapper.d.ts',
-            'fluxer_app/rust/libfluxcore/Cargo.toml', 'fluxer_app/rust/libfluxcore/Cargo.lock',
-            'fluxer_app/rust/libfluxcore/.cargo/config.toml', 'fluxer_app/rust/libfluxcore/src/**',
-            'fluxer_app/rust/libfluxwebp/Cargo.toml', 'fluxer_app/rust/libfluxwebp/Cargo.lock',
-            'fluxer_app/rust/libfluxwebp/src/**', 'fluxer_app/rust/libfluxwebp/shim/**',
-            'fluxer_app/rust/libfluxwebp/simd/**',
+            'makarincord_app/rust/libfluxcore/Cargo.toml', 'makarincord_app/rust/libfluxcore/Cargo.lock',
+            'makarincord_app/rust/libfluxcore/.cargo/config.toml', 'makarincord_app/rust/libfluxcore/src/**',
+            'makarincord_app/rust/libfluxwebp/Cargo.toml', 'makarincord_app/rust/libfluxwebp/Cargo.lock',
+            'makarincord_app/rust/libfluxwebp/src/**', 'makarincord_app/rust/libfluxwebp/shim/**',
+            'makarincord_app/rust/libfluxwebp/simd/**',
             'packages/markdown_parser/rust/Cargo.toml', 'packages/markdown_parser/rust/.cargo/config.toml',
             'packages/markdown_parser/rust/src/**') }}
 
@@ -145,17 +145,17 @@ jobs:
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
-            fluxer_app/pkgs/libfluxcore
-            fluxer_app/pkgs/libfluxwebp
-            fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
+            makarincord_app/pkgs/libfluxcore
+            makarincord_app/pkgs/libfluxwebp
+            makarincord_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
           key: >-
             app-wasm-${{ runner.os }}-1.98.1-${{ hashFiles('Cargo.lock', 'tools/ci/src/app_wasm.rs',
             'tools/ci/templates/libfluxcore_wrapper.js', 'tools/ci/templates/libfluxcore_wrapper.d.ts',
-            'fluxer_app/rust/libfluxcore/Cargo.toml', 'fluxer_app/rust/libfluxcore/Cargo.lock',
-            'fluxer_app/rust/libfluxcore/.cargo/config.toml', 'fluxer_app/rust/libfluxcore/src/**',
-            'fluxer_app/rust/libfluxwebp/Cargo.toml', 'fluxer_app/rust/libfluxwebp/Cargo.lock',
-            'fluxer_app/rust/libfluxwebp/src/**', 'fluxer_app/rust/libfluxwebp/shim/**',
-            'fluxer_app/rust/libfluxwebp/simd/**',
+            'makarincord_app/rust/libfluxcore/Cargo.toml', 'makarincord_app/rust/libfluxcore/Cargo.lock',
+            'makarincord_app/rust/libfluxcore/.cargo/config.toml', 'makarincord_app/rust/libfluxcore/src/**',
+            'makarincord_app/rust/libfluxwebp/Cargo.toml', 'makarincord_app/rust/libfluxwebp/Cargo.lock',
+            'makarincord_app/rust/libfluxwebp/src/**', 'makarincord_app/rust/libfluxwebp/shim/**',
+            'makarincord_app/rust/libfluxwebp/simd/**',
             'packages/markdown_parser/rust/Cargo.toml', 'packages/markdown_parser/rust/.cargo/config.toml',
             'packages/markdown_parser/rust/src/**') }}
 
@@ -188,9 +188,9 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: rust-${{ runner.os }}-${{ hashFiles('fluxer_media_proxy/tools/install-native-deps.sh') }}-${{ hashFiles('Cargo.lock') }}
+          key: rust-${{ runner.os }}-${{ hashFiles('makarincord_media_proxy/tools/install-native-deps.sh') }}-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
-            rust-${{ runner.os }}-${{ hashFiles('fluxer_media_proxy/tools/install-native-deps.sh') }}-
+            rust-${{ runner.os }}-${{ hashFiles('makarincord_media_proxy/tools/install-native-deps.sh') }}-
 
       - name: Install cargo-deny
         run: cargo install cargo-deny --version 0.20.2 --locked
@@ -199,7 +199,7 @@ jobs:
         run: cargo deny --locked check -D warnings
 
       - name: Check libfluxwebp dependencies
-        run: cargo deny --manifest-path fluxer_app/rust/libfluxwebp/Cargo.toml --config deny.toml --locked check licenses bans sources
+        run: cargo deny --manifest-path makarincord_app/rust/libfluxwebp/Cargo.toml --config deny.toml --locked check licenses bans sources
 
       - name: Check desktop native dependencies
         run: tools/ci/check-desktop-native-workspaces.sh dependencies
@@ -208,7 +208,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: /opt/fluxer-native
-          key: media-native-${{ runner.os }}-${{ hashFiles('fluxer_media_proxy/tools/install-native-deps.sh') }}
+          key: media-native-${{ runner.os }}-${{ hashFiles('makarincord_media_proxy/tools/install-native-deps.sh') }}
 
       - name: Install native dependencies
         run: |
@@ -242,7 +242,7 @@ jobs:
             xz-utils \
             yasm \
             zlib1g-dev
-          sudo fluxer_media_proxy/tools/install-native-deps.sh /opt/fluxer-native
+          sudo makarincord_media_proxy/tools/install-native-deps.sh /opt/fluxer-native
           echo "PKG_CONFIG_PATH=/opt/fluxer-native/lib/pkgconfig:/opt/fluxer-native/lib64/pkgconfig" >> "$GITHUB_ENV"
           echo "LD_LIBRARY_PATH=/opt/fluxer-native/lib:/opt/fluxer-native/lib64" >> "$GITHUB_ENV"
           echo "/opt/fluxer-native/bin" >> "$GITHUB_PATH"
@@ -254,7 +254,7 @@ jobs:
         run: cargo fmt --all -- --check
 
       - name: Check formatting (libfluxwebp)
-        run: cargo fmt --manifest-path fluxer_app/rust/libfluxwebp/Cargo.toml -- --check
+        run: cargo fmt --manifest-path makarincord_app/rust/libfluxwebp/Cargo.toml -- --check
 
       - name: Check formatting (desktop native workspaces)
         run: tools/ci/check-desktop-native-workspaces.sh fmt
@@ -298,8 +298,8 @@ jobs:
         uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6
         with:
           workspaces: |
-            fluxer_gateway/native/guild_member_list_oset_nif -> target
-            fluxer_gateway/native/push_markdown_plaintext_nif -> target
+            makarincord_gateway/native/guild_member_list_oset_nif -> target
+            makarincord_gateway/native/push_markdown_plaintext_nif -> target
           save-if: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Restore ci helper
@@ -327,17 +327,17 @@ jobs:
         with:
           path: |
             ~/.cache/rebar3
-            fluxer_gateway/_build
-            !fluxer_gateway/_build/default/lib/fluxer_gateway/**
-            !fluxer_gateway/_build/test/lib/fluxer_gateway/**
+            makarincord_gateway/_build
+            !makarincord_gateway/_build/default/lib/fluxer_gateway/**
+            !makarincord_gateway/_build/test/lib/fluxer_gateway/**
           key: >-
-            rebar3-${{ runner.os }}-otp28-rebar3.27.0-${{ hashFiles('fluxer_gateway/rebar.lock',
-            'fluxer_gateway/rebar.config') }}
+            rebar3-${{ runner.os }}-otp28-rebar3.27.0-${{ hashFiles('makarincord_gateway/rebar.lock',
+            'makarincord_gateway/rebar.config') }}
           restore-keys: |
             rebar3-${{ runner.os }}-otp28-rebar3.27.0-
 
       - name: Drop restored gateway build output
-        run: rm -rf fluxer_gateway/_build/default/lib/fluxer_gateway fluxer_gateway/_build/test/lib/fluxer_gateway
+        run: rm -rf makarincord_gateway/_build/default/lib/fluxer_gateway makarincord_gateway/_build/test/lib/fluxer_gateway
 
       - name: Check formatting
         run: |
@@ -361,12 +361,12 @@ jobs:
         with:
           path: |
             ~/.cache/rebar3
-            fluxer_gateway/_build
-            !fluxer_gateway/_build/default/lib/fluxer_gateway/**
-            !fluxer_gateway/_build/test/lib/fluxer_gateway/**
+            makarincord_gateway/_build
+            !makarincord_gateway/_build/default/lib/fluxer_gateway/**
+            !makarincord_gateway/_build/test/lib/fluxer_gateway/**
           key: >-
-            rebar3-${{ runner.os }}-otp28-rebar3.27.0-${{ hashFiles('fluxer_gateway/rebar.lock',
-            'fluxer_gateway/rebar.config') }}
+            rebar3-${{ runner.os }}-otp28-rebar3.27.0-${{ hashFiles('makarincord_gateway/rebar.lock',
+            'makarincord_gateway/rebar.config') }}
 
   knip:
     runs-on: ubuntu-24.04
@@ -414,17 +414,17 @@ jobs:
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
-            fluxer_app/pkgs/libfluxcore
-            fluxer_app/pkgs/libfluxwebp
-            fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
+            makarincord_app/pkgs/libfluxcore
+            makarincord_app/pkgs/libfluxwebp
+            makarincord_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
           key: >-
             app-wasm-${{ runner.os }}-1.98.1-${{ hashFiles('Cargo.lock', 'tools/ci/src/app_wasm.rs',
             'tools/ci/templates/libfluxcore_wrapper.js', 'tools/ci/templates/libfluxcore_wrapper.d.ts',
-            'fluxer_app/rust/libfluxcore/Cargo.toml', 'fluxer_app/rust/libfluxcore/Cargo.lock',
-            'fluxer_app/rust/libfluxcore/.cargo/config.toml', 'fluxer_app/rust/libfluxcore/src/**',
-            'fluxer_app/rust/libfluxwebp/Cargo.toml', 'fluxer_app/rust/libfluxwebp/Cargo.lock',
-            'fluxer_app/rust/libfluxwebp/src/**', 'fluxer_app/rust/libfluxwebp/shim/**',
-            'fluxer_app/rust/libfluxwebp/simd/**',
+            'makarincord_app/rust/libfluxcore/Cargo.toml', 'makarincord_app/rust/libfluxcore/Cargo.lock',
+            'makarincord_app/rust/libfluxcore/.cargo/config.toml', 'makarincord_app/rust/libfluxcore/src/**',
+            'makarincord_app/rust/libfluxwebp/Cargo.toml', 'makarincord_app/rust/libfluxwebp/Cargo.lock',
+            'makarincord_app/rust/libfluxwebp/src/**', 'makarincord_app/rust/libfluxwebp/shim/**',
+            'makarincord_app/rust/libfluxwebp/simd/**',
             'packages/markdown_parser/rust/Cargo.toml', 'packages/markdown_parser/rust/.cargo/config.toml',
             'packages/markdown_parser/rust/src/**') }}
 
@@ -437,17 +437,17 @@ jobs:
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
-            fluxer_app/pkgs/libfluxcore
-            fluxer_app/pkgs/libfluxwebp
-            fluxer_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
+            makarincord_app/pkgs/libfluxcore
+            makarincord_app/pkgs/libfluxwebp
+            makarincord_app/src/features/messaging/utils/markdown/parser/MarkdownParserWasmBytes.ts
           key: >-
             app-wasm-${{ runner.os }}-1.98.1-${{ hashFiles('Cargo.lock', 'tools/ci/src/app_wasm.rs',
             'tools/ci/templates/libfluxcore_wrapper.js', 'tools/ci/templates/libfluxcore_wrapper.d.ts',
-            'fluxer_app/rust/libfluxcore/Cargo.toml', 'fluxer_app/rust/libfluxcore/Cargo.lock',
-            'fluxer_app/rust/libfluxcore/.cargo/config.toml', 'fluxer_app/rust/libfluxcore/src/**',
-            'fluxer_app/rust/libfluxwebp/Cargo.toml', 'fluxer_app/rust/libfluxwebp/Cargo.lock',
-            'fluxer_app/rust/libfluxwebp/src/**', 'fluxer_app/rust/libfluxwebp/shim/**',
-            'fluxer_app/rust/libfluxwebp/simd/**',
+            'makarincord_app/rust/libfluxcore/Cargo.toml', 'makarincord_app/rust/libfluxcore/Cargo.lock',
+            'makarincord_app/rust/libfluxcore/.cargo/config.toml', 'makarincord_app/rust/libfluxcore/src/**',
+            'makarincord_app/rust/libfluxwebp/Cargo.toml', 'makarincord_app/rust/libfluxwebp/Cargo.lock',
+            'makarincord_app/rust/libfluxwebp/src/**', 'makarincord_app/rust/libfluxwebp/shim/**',
+            'makarincord_app/rust/libfluxwebp/simd/**',
             'packages/markdown_parser/rust/Cargo.toml', 'packages/markdown_parser/rust/.cargo/config.toml',
             'packages/markdown_parser/rust/src/**') }}
 
@@ -503,9 +503,9 @@ jobs:
           if ! git diff --exit-code -- \
             packages/errors/src/i18n/locales \
             packages/errors/src/i18n/ErrorI18nTypes.generated.ts \
-            fluxer_api/pkgs/email/src/email_i18n/locales \
-            fluxer_api/pkgs/email/src/email_i18n/EmailI18nTypes.generated.ts \
-            fluxer_api/src/api/content_i18n/locales; then
+            makarincord_api/pkgs/email/src/email_i18n/locales \
+            makarincord_api/pkgs/email/src/email_i18n/EmailI18nTypes.generated.ts \
+            makarincord_api/src/api/content_i18n/locales; then
             echo "::error::Compiled locale modules are outdated. Run 'pnpm i18n:compile' and commit the result. Translations belong in the weblate/ catalogs, not in the generated locales/ modules."
             exit 1
           fi

@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
       image: fluxer-messages
-      dockerfile: fluxer_messages/Dockerfile
+      dockerfile: makarincord_messages/Dockerfile
       build-version: ${{ inputs['build-version'] }}

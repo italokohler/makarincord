@@ -325,9 +325,9 @@ fn normalize_selected_tasks(mut selected: Vec<String>, cloudflare_tunnel: bool) 
 
 pub fn task_table() -> Result<BTreeMap<&'static str, DevTask>> {
     let self_tool = self_tool_command()?;
-    let api_dir = ROOT.join("fluxer_api");
+    let api_dir = ROOT.join("makarincord_api");
     let api_tsx = api_dir.join("node_modules/.bin/tsx");
-    let app_dir = ROOT.join("fluxer_app");
+    let app_dir = ROOT.join("makarincord_app");
     let app_dev_server = if cfg!(windows) {
         strings(&["cargo", "run", "--quiet", "-p", "fluxer-ci", "--", "app-dev-server"])
     } else {
@@ -437,7 +437,7 @@ pub fn task_table() -> Result<BTreeMap<&'static str, DevTask>> {
             ),
             (
                 "FLUXER_STATIC_DIR".to_owned(),
-                Some("fluxer_static".to_owned()),
+                Some("makarincord_static".to_owned()),
             ),
             ("RELEASE_CHANNEL".to_owned(), Some("canary".to_owned())),
         ],
@@ -513,15 +513,15 @@ pub fn task_table() -> Result<BTreeMap<&'static str, DevTask>> {
             "watch",
             "--no-dot-ignores",
             "-w",
-            "fluxer_admin/src",
+            "makarincord_admin/src",
             "-w",
-            "fluxer_admin/Cargo.toml",
+            "makarincord_admin/Cargo.toml",
             "-w",
-            "fluxer_admin/build.rs",
+            "makarincord_admin/build.rs",
             "-w",
-            "fluxer_admin/openapi-admin.json",
+            "makarincord_admin/openapi-admin.json",
             "-w",
-            "fluxer_admin/static",
+            "makarincord_admin/static",
             "-x",
             "run -p fluxer_admin",
         ]),
@@ -1134,15 +1134,15 @@ mod tests {
                 "watch".to_owned(),
                 "--no-dot-ignores".to_owned(),
                 "-w".to_owned(),
-                "fluxer_admin/src".to_owned(),
+                "makarincord_admin/src".to_owned(),
                 "-w".to_owned(),
-                "fluxer_admin/Cargo.toml".to_owned(),
+                "makarincord_admin/Cargo.toml".to_owned(),
                 "-w".to_owned(),
-                "fluxer_admin/build.rs".to_owned(),
+                "makarincord_admin/build.rs".to_owned(),
                 "-w".to_owned(),
-                "fluxer_admin/openapi-admin.json".to_owned(),
+                "makarincord_admin/openapi-admin.json".to_owned(),
                 "-w".to_owned(),
-                "fluxer_admin/static".to_owned(),
+                "makarincord_admin/static".to_owned(),
                 "-x".to_owned(),
                 "run -p fluxer_admin".to_owned()
             ]

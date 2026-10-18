@@ -8,14 +8,14 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 DEFAULT_CRATES=$(
 	cat <<'ENTRIES'
-fluxer_desktop/native/rt-thread:tick
-fluxer_desktop/native/audio-mix:mix
-fluxer_desktop/native/screen-frame-bus:staging
-fluxer_desktop/native/screen-frame-bus:frame_pool
-fluxer_desktop/native/encoder-ring:ring
-fluxer_desktop/native/linux-audio-capture:end_to_end
-fluxer_desktop/native/linux-screen-capture:pipewire_callback
-fluxer_desktop/native/rust:native_core
+makarincord_desktop/native/rt-thread:tick
+makarincord_desktop/native/audio-mix:mix
+makarincord_desktop/native/screen-frame-bus:staging
+makarincord_desktop/native/screen-frame-bus:frame_pool
+makarincord_desktop/native/encoder-ring:ring
+makarincord_desktop/native/linux-audio-capture:end_to_end
+makarincord_desktop/native/linux-screen-capture:pipewire_callback
+makarincord_desktop/native/rust:native_core
 ENTRIES
 )
 

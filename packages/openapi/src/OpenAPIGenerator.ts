@@ -68,7 +68,7 @@ export class OpenAPIGenerator {
 	}
 	public async generateWithStats(): Promise<OpenAPIGenerationResult> {
 		const schemaRegistry = new SchemaRegistry(this.settings.schemaTarget, this.settings.routeScope !== 'admin');
-		const controllerFiles = discoverControllerFiles(`${this.settings.basePath}/fluxer_api`);
+		const controllerFiles = discoverControllerFiles(`${this.settings.basePath}/makarincord_api`);
 		const routes = this.filterRoutesForScope(extractRoutesFromControllers(controllerFiles));
 		await loadSchemasIntoRegistry(this.settings.basePath, schemaRegistry);
 		const registeredSchemaCount = schemaRegistry.size;

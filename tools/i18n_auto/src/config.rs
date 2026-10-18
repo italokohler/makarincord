@@ -39,8 +39,8 @@ pub fn default_app_dir() -> PathBuf {
     manifest_dir
         .parent()
         .and_then(Path::parent)
-        .map(|repo_root| repo_root.join("fluxer_app"))
-        .unwrap_or_else(|| PathBuf::from("fluxer_app"))
+        .map(|repo_root| repo_root.join("makarincord_app"))
+        .unwrap_or_else(|| PathBuf::from("makarincord_app"))
 }
 
 pub fn i18n_dir(app_dir: &Path) -> PathBuf {

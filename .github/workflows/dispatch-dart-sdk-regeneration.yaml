@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - fluxer_api/src/api/openapi/openapi.json
+      - makarincord_api/src/api/openapi/openapi.json
 
 permissions: {}
 

@@ -738,7 +738,7 @@ fn assert_no_redistributable_runtime_imports(node_file_path: &Path, platform: &s
         return Ok(());
     }
     bail!(
-        "{} imports redistributable Microsoft runtime DLL(s) that are not on a clean Windows install:\n{}\nEnsure the crate is built with +crt-static so the C/C++ runtime is statically linked into the addon.\nSee fluxer_desktop/native/.cargo/config.toml for the cargo configuration that enables this for MSVC targets.",
+        "{} imports redistributable Microsoft runtime DLL(s) that are not on a clean Windows install:\n{}\nEnsure the crate is built with +crt-static so the C/C++ runtime is statically linked into the addon.\nSee makarincord_desktop/native/.cargo/config.toml for the cargo configuration that enables this for MSVC targets.",
         node_file_path.display(),
         offenders
             .iter()
@@ -785,7 +785,7 @@ fn assert_system32_dependent_load_flag(node_file_path: &Path, platform: &str) ->
     let flags = read_dependent_load_flags(node_file_path);
     ensure!(
         flags.is_some_and(|value| value & LOAD_LIBRARY_SEARCH_SYSTEM32 != 0),
-        "{} does not set LOAD_LIBRARY_SEARCH_SYSTEM32 in its load config DependentLoadFlags (read {}).\nEvery import of a shipped addon must resolve from System32 so a planted DLL cannot be loaded in its place.\nSee fluxer_desktop/native/.cargo/config.toml for the /DEPENDENTLOADFLAG:0x800 link argument that sets it.",
+        "{} does not set LOAD_LIBRARY_SEARCH_SYSTEM32 in its load config DependentLoadFlags (read {}).\nEvery import of a shipped addon must resolve from System32 so a planted DLL cannot be loaded in its place.\nSee makarincord_desktop/native/.cargo/config.toml for the /DEPENDENTLOADFLAG:0x800 link argument that sets it.",
         node_file_path.display(),
         flags.map_or_else(
             || "no load config".to_string(),
@@ -1022,13 +1022,13 @@ mod tests {
     #[test]
     fn the_desktop_build_script_builds_and_verifies_every_registered_addon() {
         let build_script =
-            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fluxer_desktop/scripts/build.mjs");
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../makarincord_desktop/scripts/build.mjs");
         let source = fs::read_to_string(&build_script)
             .unwrap_or_else(|error| panic!("failed to read {}: {error}", build_script.display()));
         for addon in DESKTOP_NATIVE_ADDONS {
             assert!(
                 source.contains(&format!("dirName: '{}'", addon.package_dir)),
-                "{} is registered but fluxer_desktop/scripts/build.mjs never builds it",
+                "{} is registered but makarincord_desktop/scripts/build.mjs never builds it",
                 addon.package_dir
             );
             assert!(
@@ -1036,7 +1036,7 @@ mod tests {
                     .matches(&format!("label: '{}'", addon.package_name))
                     .count()
                     >= 2,
-                "{} must appear in both the build list and the artifact verification list in fluxer_desktop/scripts/build.mjs",
+                "{} must appear in both the build list and the artifact verification list in makarincord_desktop/scripts/build.mjs",
                 addon.package_name
             );
         }
@@ -1055,7 +1055,7 @@ mod tests {
 
     #[test]
     fn the_registry_covers_every_shipped_addon_package() {
-        let native_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fluxer_desktop/native");
+        let native_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../makarincord_desktop/native");
         let mut shipped = Vec::new();
         for entry in fs::read_dir(&native_root).expect("failed to read the native addon root") {
             let entry = entry.expect("failed to read a native addon directory entry");
@@ -1071,13 +1071,13 @@ mod tests {
         registered.sort();
         assert_eq!(
             shipped, registered,
-            "every fluxer_desktop/native/* directory with a package.json must be registered in DESKTOP_NATIVE_ADDONS"
+            "every makarincord_desktop/native/* directory with a package.json must be registered in DESKTOP_NATIVE_ADDONS"
         );
     }
 
     #[test]
     fn every_addon_ships_a_byte_identical_loader_diagnostics_copy() {
-        let native_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fluxer_desktop/native");
+        let native_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../makarincord_desktop/native");
         let mut canonical: Option<(String, Vec<u8>)> = None;
         let mut checked = 0;
         for addon in DESKTOP_NATIVE_ADDONS {

@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
       image: fluxer-gifs
-      dockerfile: fluxer_gifs/Dockerfile
+      dockerfile: makarincord_gifs/Dockerfile
       build-version: ${{ inputs['build-version'] }}

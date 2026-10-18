@@ -651,14 +651,14 @@ fn patch_libfluxcore_bindgen_dts(content: &str) -> Result<String> {
 
 pub(crate) fn resolve_app_dir() -> Result<PathBuf> {
     let cwd = env::current_dir().context("Failed to resolve current directory")?;
-    if cwd.file_name().and_then(|value| value.to_str()) == Some("fluxer_app") {
+    if cwd.file_name().and_then(|value| value.to_str()) == Some("makarincord_app") {
         return Ok(cwd);
     }
-    if cwd.join("fluxer_app").is_dir() {
-        return Ok(cwd.join("fluxer_app"));
+    if cwd.join("makarincord_app").is_dir() {
+        return Ok(cwd.join("makarincord_app"));
     }
     Err(anyhow!(
-        "Could not resolve fluxer_app directory from {}",
+        "Could not resolve makarincord_app directory from {}",
         cwd.display()
     ))
 }
@@ -897,16 +897,16 @@ export const MARKDOWN_PARSER_WASM_BASE64 =\n\
 
     #[test]
     fn libfluxwebp_cflags_select_sse2_for_simd_and_oz_for_scalar() {
-        let crate_dir = Path::new("/repo/fluxer_app/rust/libfluxwebp");
+        let crate_dir = Path::new("/repo/makarincord_app/rust/libfluxwebp");
         assert_eq!(
             LibfluxwebpVariant::Simd.cflags(crate_dir),
-            "-isystem /repo/fluxer_app/rust/libfluxwebp/shim -isystem \
-             /repo/fluxer_app/rust/libfluxwebp/simd -msimd128 -DEMSCRIPTEN -D__SSE__ -D__SSE2__ \
+            "-isystem /repo/makarincord_app/rust/libfluxwebp/shim -isystem \
+             /repo/makarincord_app/rust/libfluxwebp/simd -msimd128 -DEMSCRIPTEN -D__SSE__ -D__SSE2__ \
              -DWEBP_HAVE_SSE2 -DNDEBUG -O3"
         );
         assert_eq!(
             LibfluxwebpVariant::Scalar.cflags(crate_dir),
-            "-isystem /repo/fluxer_app/rust/libfluxwebp/shim -DNDEBUG -Oz"
+            "-isystem /repo/makarincord_app/rust/libfluxwebp/shim -DNDEBUG -Oz"
         );
     }
 

@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
       image: fluxer-snowflakes
-      dockerfile: fluxer_snowflakes/Dockerfile
+      dockerfile: makarincord_snowflakes/Dockerfile
       build-version: ${{ inputs['build-version'] }}

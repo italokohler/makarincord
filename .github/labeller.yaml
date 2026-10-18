@@ -1,51 +1,51 @@
 f:admin:
   - changed-files:
-    - any-glob-to-any-file: fluxer_admin/**/*
+    - any-glob-to-any-file: makarincord_admin/**/*
 f:api:
   - changed-files:
-    - any-glob-to-any-file: fluxer_api/**/*
+    - any-glob-to-any-file: makarincord_api/**/*
 f:app:
   - changed-files:
-    - any-glob-to-any-file: fluxer_app/**/*
+    - any-glob-to-any-file: makarincord_app/**/*
 f:app_proxy:
   - changed-files:
-    - any-glob-to-any-file: fluxer_app_proxy/**/*
+    - any-glob-to-any-file: makarincord_app_proxy/**/*
 f:common:
   - changed-files:
-    - any-glob-to-any-file: fluxer_common/**/*
+    - any-glob-to-any-file: makarincord_common/**/*
 f:desktop:
   - changed-files:
-    - any-glob-to-any-file: fluxer_desktop/**/*
+    - any-glob-to-any-file: makarincord_desktop/**/*
 f:docs:
   - changed-files:
-    - any-glob-to-any-file: fluxer_docs/**/*
+    - any-glob-to-any-file: makarincord_docs/**/*
 f:gateway:
   - changed-files:
-    - any-glob-to-any-file: fluxer_gateway/**/*
+    - any-glob-to-any-file: makarincord_gateway/**/*
 f:media_proxy:
   - changed-files:
-    - any-glob-to-any-file: fluxer_media_proxy/**/*
+    - any-glob-to-any-file: makarincord_media_proxy/**/*
 f:messages:
   - changed-files:
-    - any-glob-to-any-file: fluxer_messages/**/*
+    - any-glob-to-any-file: makarincord_messages/**/*
 f:push:
   - changed-files:
-    - any-glob-to-any-file: fluxer_push/**/*
+    - any-glob-to-any-file: makarincord_push/**/*
 f:snowflakes:
   - changed-files:
-    - any-glob-to-any-file: fluxer_snowflakes/**/*
+    - any-glob-to-any-file: makarincord_snowflakes/**/*
 f:static:
   - changed-files:
-    - any-glob-to-any-file: fluxer_static/**/*
+    - any-glob-to-any-file: makarincord_static/**/*
 f:svc:
   - changed-files:
-    - any-glob-to-any-file: fluxer_svc/**/*
+    - any-glob-to-any-file: makarincord_svc/**/*
 f:unfurl:
   - changed-files:
-    - any-glob-to-any-file: fluxer_unfurl/**/*
+    - any-glob-to-any-file: makarincord_unfurl/**/*
 f:users:
   - changed-files:
-    - any-glob-to-any-file: fluxer_users/**/*
+    - any-glob-to-any-file: makarincord_users/**/*
 p:config:
   - changed-files:
     - any-glob-to-any-file: packages/config/**/*

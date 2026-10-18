@@ -65,13 +65,13 @@ O arquivo [`SOURCE_ORIGIN.md`](./SOURCE_ORIGIN.md) documenta a origem do snapsho
 ## 🧱 Estrutura do código
 
 ```text
-├── fluxer_app/              # Aplicação web e interface MAKARINCORD
-├── fluxer_desktop/          # Cliente desktop e empacotamento
-├── fluxer_api/              # API e serviços de aplicação
-├── fluxer_gateway/          # Gateway em tempo real
+├── makarincord_app/              # Aplicação web e interface MAKARINCORD
+├── makarincord_desktop/          # Cliente desktop e empacotamento
+├── makarincord_api/              # API e serviços de aplicação
+├── makarincord_gateway/          # Gateway em tempo real
 ├── packages/                # Pacotes compartilhados
 ├── deploy/self-hosting/     # Compose e configuração da VM
-├── fluxer_static/           # Assets estáticos e avisos de terceiros
+├── makarincord_static/           # Assets estáticos e avisos de terceiros
 └── SOURCE_ORIGIN.md         # Proveniência do snapshot publicado
 ```
 
@@ -81,6 +81,6 @@ O projeto combina TypeScript, React, Rust e serviços de self-hosting. Para inic
 
 ## 📜 Licença e créditos
 
-O código é distribuído sob a licença [AGPL-3.0-or-later](./LICENSE). Os avisos de terceiros estão em [`fluxer_static/THIRD_PARTY_LICENSES.md`](./fluxer_static/THIRD_PARTY_LICENSES.md).
+O código é distribuído sob a licença [AGPL-3.0-or-later](./LICENSE). Os avisos de terceiros estão em [`makarincord_static/THIRD_PARTY_LICENSES.md`](./makarincord_static/THIRD_PARTY_LICENSES.md).
 
 O MAKARINCORD é uma distribuição customizada baseada na base técnica Fluxer; os créditos, licenças e avisos originais permanecem preservados no código.

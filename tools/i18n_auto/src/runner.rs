@@ -141,7 +141,7 @@ impl RuntimeConfig {
             ),
             CatalogName::ApiContent => (
                 repo_root
-                    .join("fluxer_api")
+                    .join("makarincord_api")
                     .join("src")
                     .join("api")
                     .join("content_i18n")
@@ -150,7 +150,7 @@ impl RuntimeConfig {
                 CatalogLayout::StaticJson(StaticJsonCatalogConfig {
                     kind: StaticTsCatalogKind::SimpleMessages,
                     source_path: repo_root
-                        .join("fluxer_api")
+                        .join("makarincord_api")
                         .join("src")
                         .join("api")
                         .join("content_i18n")
@@ -160,7 +160,7 @@ impl RuntimeConfig {
             ),
             CatalogName::Email => (
                 repo_root
-                    .join("fluxer_api")
+                    .join("makarincord_api")
                     .join("pkgs")
                     .join("email")
                     .join("src")
@@ -170,7 +170,7 @@ impl RuntimeConfig {
                 CatalogLayout::StaticJson(StaticJsonCatalogConfig {
                     kind: StaticTsCatalogKind::EmailTemplates,
                     source_path: repo_root
-                        .join("fluxer_api")
+                        .join("makarincord_api")
                         .join("pkgs")
                         .join("email")
                         .join("src")

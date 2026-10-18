@@ -1031,7 +1031,7 @@ mod tests {
         for service in ["api", "worker"] {
             assert!(
                 rendered.contains(&format!(
-                    "  {service}:\n    image: {COMPOSE_IMAGE_PREFIX}/fluxer-api@${{FLUXER_API_IMAGE_DIGEST:-{}}}\n",
+                    "  {service}:\n    image: {COMPOSE_IMAGE_PREFIX}/makarincord-api@${{FLUXER_API_IMAGE_DIGEST:-{}}}\n",
                     api.digest
                 )),
                 "{rendered}"
@@ -1089,7 +1089,7 @@ mod tests {
     fn promote_command_targets_the_digest() {
         let digest = format!("sha256:{}", "0".repeat(64));
         let spec = promote_command(
-            "ghcr.io/fluxerapp/fluxer-api",
+            "ghcr.io/fluxerapp/makarincord-api",
             &digest,
             &["v1".to_string(), "latest".to_string()],
         );
@@ -1101,10 +1101,10 @@ mod tests {
                 "imagetools",
                 "create",
                 "-t",
-                "ghcr.io/fluxerapp/fluxer-api:v1",
+                "ghcr.io/fluxerapp/makarincord-api:v1",
                 "-t",
-                "ghcr.io/fluxerapp/fluxer-api:latest",
-                &format!("ghcr.io/fluxerapp/fluxer-api@{digest}"),
+                "ghcr.io/fluxerapp/makarincord-api:latest",
+                &format!("ghcr.io/fluxerapp/makarincord-api@{digest}"),
             ]
         );
     }
@@ -1211,7 +1211,7 @@ mod tests {
         validate_registry("registry.example.com:5000/fluxer").unwrap();
         assert!(validate_registry("").is_err());
         assert!(validate_registry("ghcr.io/fluxerapp/").is_err());
-        assert!(validate_registry("ghcr.io/fluxerapp/fluxer-api:v1").is_err());
+        assert!(validate_registry("ghcr.io/fluxerapp/makarincord-api:v1").is_err());
         assert!(validate_registry("ghcr.io/ fluxerapp").is_err());
     }
 

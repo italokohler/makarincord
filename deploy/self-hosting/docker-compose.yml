@@ -455,7 +455,7 @@ services:
 
   api:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-api:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/makarincord-api:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -489,7 +489,7 @@ services:
 
   worker:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-api:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/makarincord-api:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -519,7 +519,7 @@ services:
 
   gateway:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-gateway:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/makarincord-gateway:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -559,7 +559,7 @@ services:
 
   media-proxy:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-media-proxy:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/makarincord-media-proxy:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -602,7 +602,7 @@ services:
 
   push:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-push:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/makarincord-push:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -627,7 +627,7 @@ services:
       FLUXER_PUSH_FCM_TOKEN_URI: ${FLUXER_PUSH_FCM_TOKEN_URI:-}
       FLUXER_PUSH_FCM_APPS: ${FLUXER_PUSH_FCM_APPS:-}
     healthcheck:
-      test: ["CMD", "/usr/local/bin/fluxer-push", "healthcheck"]
+      test: ["CMD", "/usr/local/bin/makarincord-push", "healthcheck"]
       <<: *fluxer-app-healthcheck
       start_period: ${FLUXER_SVC_HEALTHCHECK_START_PERIOD:-60s}
     depends_on:

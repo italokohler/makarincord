@@ -11,7 +11,7 @@ import {SchemaRegistry} from '@fluxer/openapi/src/registry/SchemaRegistry';
 import {DonationManageQuery} from '@fluxer/schema/src/domains/donation/DonationSchemas';
 import {beforeAll, describe, expect, it} from 'vitest';
 
-const API_PACKAGE_PATH = path.join(fileURLToPath(new URL('../../../../../', import.meta.url)), 'fluxer_api');
+const API_PACKAGE_PATH = path.join(fileURLToPath(new URL('../../../../../', import.meta.url)), 'makarincord_api');
 
 describe('discoverControllerFiles', () => {
 	let files: Array<string>;

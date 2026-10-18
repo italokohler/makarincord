@@ -172,7 +172,7 @@ fn bake_command(targets: &[&str]) -> Result<CommandSpec> {
     let public_asset_base_url = env::var("PUBLIC_ASSET_BASE_URL")
         .unwrap_or_else(|_| DEFAULT_PUBLIC_ASSET_BASE_URL.to_string());
     Ok(CommandSpec::new("docker")
-        .args(["buildx", "bake", "-f", "fluxer_app_proxy/docker-bake.hcl"])
+        .args(["buildx", "bake", "-f", "makarincord_app_proxy/docker-bake.hcl"])
         .args(targets.iter().copied())
         .env("IMAGE_REPO", image_repo()?)
         .env("BUILD_VERSION", build_version)
@@ -627,7 +627,7 @@ mod tests {
     #[test]
     fn build_command_sets_bake_environment() {
         let command = CommandSpec::new("docker")
-            .args(["buildx", "bake", "-f", "fluxer_app_proxy/docker-bake.hcl"])
+            .args(["buildx", "bake", "-f", "makarincord_app_proxy/docker-bake.hcl"])
             .env("IMAGE_REPO", "ghcr.io/example/fluxer-app-proxy")
             .env("BUILD_VERSION", "2026.520.1")
             .env("PUBLIC_ASSET_BASE_URL", DEFAULT_PUBLIC_ASSET_BASE_URL);
@@ -639,7 +639,7 @@ mod tests {
                 OsString::from("buildx"),
                 OsString::from("bake"),
                 OsString::from("-f"),
-                OsString::from("fluxer_app_proxy/docker-bake.hcl"),
+                OsString::from("makarincord_app_proxy/docker-bake.hcl"),
             ]
         );
         assert!(command.env.contains(&(
@@ -655,7 +655,7 @@ mod tests {
 
     #[test]
     fn dockerfile_guards_the_trim_on_an_absolute_asset_base_url() {
-        let dockerfile = include_str!("../../../fluxer_app_proxy/Dockerfile");
+        let dockerfile = include_str!("../../../makarincord_app_proxy/Dockerfile");
         let trim = dockerfile
             .split("FROM alpine:3.24 AS app-assets")
             .nth(1)
@@ -672,7 +672,7 @@ mod tests {
 
     #[test]
     fn dockerfile_workspace_manifest_keeps_the_release_profile() {
-        let dockerfile = include_str!("../../../fluxer_app_proxy/Dockerfile");
+        let dockerfile = include_str!("../../../makarincord_app_proxy/Dockerfile");
         let manifest = dockerfile
             .split("'[workspace]'")
             .nth(1)
@@ -969,7 +969,7 @@ mod tests {
 
     #[test]
     fn dockerfile_injects_one_canonical_asset_tree_into_every_architecture() {
-        let dockerfile = include_str!("../../../fluxer_app_proxy/Dockerfile");
+        let dockerfile = include_str!("../../../makarincord_app_proxy/Dockerfile");
         for entry in [
             "ARG APP_ASSETS_REF=app-assets",
             "ARG APP_ASSETS_PLATFORM=$BUILDPLATFORM",
@@ -985,7 +985,7 @@ mod tests {
 
     #[test]
     fn dockerfile_prepares_the_asset_tree_once_before_the_architecture_stages() {
-        let dockerfile = include_str!("../../../fluxer_app_proxy/Dockerfile");
+        let dockerfile = include_str!("../../../makarincord_app_proxy/Dockerfile");
         let canonical = dockerfile
             .split("FROM alpine:3.24 AS app-assets")
             .nth(1)
@@ -1008,7 +1008,7 @@ mod tests {
 
     #[test]
     fn bake_publishes_the_canonical_asset_image() {
-        let bake = include_str!("../../../fluxer_app_proxy/docker-bake.hcl");
+        let bake = include_str!("../../../makarincord_app_proxy/docker-bake.hcl");
         for entry in [
             "target \"app-assets-image\"",
             "${BUILD_VERSION}-assets",
@@ -1022,7 +1022,7 @@ mod tests {
 
     #[test]
     fn canonical_assets_platform_falls_back_to_the_bake_default() {
-        let bake = include_str!("../../../fluxer_app_proxy/docker-bake.hcl");
+        let bake = include_str!("../../../makarincord_app_proxy/docker-bake.hcl");
         let declared =
             format!("variable \"APP_ASSETS_PLATFORM\" {{ default = \"{AMD64_PLATFORM}\" }}");
         assert!(

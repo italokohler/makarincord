@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
       image: fluxer-gateway
-      dockerfile: fluxer_gateway/Dockerfile
+      dockerfile: makarincord_gateway/Dockerfile
       build-version: ${{ inputs['build-version'] }}

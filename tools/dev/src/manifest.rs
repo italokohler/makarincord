@@ -158,31 +158,31 @@ pub fn rust_services() -> Vec<RustServiceSpec> {
         RustServiceSpec {
             name: "gifs",
             package: "fluxer-gifs",
-            path: ROOT.join("fluxer_gifs"),
+            path: ROOT.join("makarincord_gifs"),
             port_base: 8110,
         },
         RustServiceSpec {
             name: "messages",
             package: "fluxer-messages",
-            path: ROOT.join("fluxer_messages"),
+            path: ROOT.join("makarincord_messages"),
             port_base: 8112,
         },
         RustServiceSpec {
             name: "snowflakes",
             package: "fluxer-snowflakes",
-            path: ROOT.join("fluxer_snowflakes"),
+            path: ROOT.join("makarincord_snowflakes"),
             port_base: 8120,
         },
         RustServiceSpec {
             name: "unfurl",
             package: "fluxer-unfurl",
-            path: ROOT.join("fluxer_unfurl"),
+            path: ROOT.join("makarincord_unfurl"),
             port_base: 8122,
         },
         RustServiceSpec {
             name: "users",
             package: "fluxer-users",
-            path: ROOT.join("fluxer_users"),
+            path: ROOT.join("makarincord_users"),
             port_base: 8124,
         },
     ]

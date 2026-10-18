@@ -181,25 +181,25 @@ jobs:
             ${{ runner.os }}-shared-renderer-cargo-registry-
 
       - name: Install dependencies
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step install_dependencies
 
       - name: Update version
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step update_version
 
       - name: Set build channel
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step set_build_channel
 
       - name: Build shared renderer assets
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step build_shared_assets
@@ -397,19 +397,19 @@ jobs:
           --step install_rust_windows_targets
 
       - name: Install dependencies
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step install_dependencies
 
       - name: Update version
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step update_version
 
       - name: Set build channel
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -428,7 +428,7 @@ jobs:
           --step restore_shared_assets
 
       - name: Build Electron main process
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -443,14 +443,14 @@ jobs:
 
       - name: Install Velopack CLI
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         run: >-
           cargo run --locked --quiet --manifest-path ${{ github.workspace }}/_ci/tools/ci/Cargo.toml -- build-desktop
           --step install_velopack_cli
 
       - name: Build Electron app (macOS)
         if: matrix.platform == 'macos'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
           CSC_LINK: ${{ secrets.APPLE_CERTIFICATE }}
@@ -464,7 +464,7 @@ jobs:
 
       - name: Verify macOS artifact (bundle ID + profile + signature)
         if: matrix.platform == 'macos'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -473,7 +473,7 @@ jobs:
 
       - name: Build Electron app (Windows)
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
           TEMP: C:\t
@@ -520,7 +520,7 @@ jobs:
       - name: Resolve unpacked Windows app directory
         id: resolve_unpacked
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -544,7 +544,7 @@ jobs:
 
       - name: Verify unpacked Windows signatures
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -553,7 +553,7 @@ jobs:
 
       - name: Create portable ZIP (Windows)
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -562,7 +562,7 @@ jobs:
 
       - name: Package Windows app with Velopack
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-
@@ -571,7 +571,7 @@ jobs:
 
       - name: Analyze Velopack nupkg for long paths
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_VERSION: ${{ env.VERSION }}
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
@@ -583,7 +583,7 @@ jobs:
 
       - name: Build Electron app (Linux)
         if: matrix.platform == 'linux'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
           USE_SYSTEM_FPM: true
@@ -593,7 +593,7 @@ jobs:
 
       - name: Verify signed Windows artifacts
         if: matrix.platform == 'windows'
-        working-directory: ${{ env.WORKDIR }}/fluxer_desktop
+        working-directory: ${{ env.WORKDIR }}/makarincord_desktop
         env:
           BUILD_CHANNEL: ${{ env.BUILD_CHANNEL }}
         run: >-

@@ -179,14 +179,14 @@ fn pack_renderer_modules(
     println!("Packing the renderer into desktop modules...");
     remove_path(&stamp_path)?;
     remove_path(&workdir)?;
-    let renderer_copy = workdir.join("fluxer_desktop/dist/renderer");
+    let renderer_copy = workdir.join("makarincord_desktop/dist/renderer");
     copy_tree(renderer, &renderer_copy, &|_| false)?;
-    let static_link = workdir.join("fluxer_static");
+    let static_link = workdir.join("makarincord_static");
     #[cfg(unix)]
-    std::os::unix::fs::symlink(ROOT.join("fluxer_static"), &static_link)
+    std::os::unix::fs::symlink(ROOT.join("makarincord_static"), &static_link)
         .with_context(|| format!("failed to link {}", static_link.display()))?;
     #[cfg(not(unix))]
-    copy_tree(&ROOT.join("fluxer_static"), &static_link, &|_| false)?;
+    copy_tree(&ROOT.join("makarincord_static"), &static_link, &|_| false)?;
     let env = vec![
         ("WORKDIR".to_owned(), Some(workdir.display().to_string())),
         ("BUILD_VERSION".to_owned(), Some(version.to_owned())),
@@ -195,7 +195,7 @@ fn pack_renderer_modules(
     ];
     run_ci_step("split_modules", &workdir, env.clone())?;
     run_ci_step("pack_modules", &workdir, env)?;
-    remove_path(&workdir.join("fluxer_desktop"))?;
+    remove_path(&workdir.join("makarincord_desktop"))?;
     let stamp = PackedModulesStamp {
         fingerprint: fingerprint.to_owned(),
         version: version.to_owned(),

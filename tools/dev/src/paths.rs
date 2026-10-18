@@ -26,9 +26,9 @@ pub static DEV_LOCAL_ENV_FILE: LazyLock<PathBuf> =
     LazyLock::new(|| ROOT.join("config/env/local.env"));
 pub static ROOT_LOCAL_ENV_FILE: LazyLock<PathBuf> = LazyLock::new(|| ROOT.join(".env.local"));
 pub static TARGET_DIR: LazyLock<PathBuf> = LazyLock::new(|| ROOT.join("target"));
-pub static DESKTOP_DIR: LazyLock<PathBuf> = LazyLock::new(|| ROOT.join("fluxer_desktop"));
+pub static DESKTOP_DIR: LazyLock<PathBuf> = LazyLock::new(|| ROOT.join("makarincord_desktop"));
 pub static GATEWAY_CONFIG_DIR: LazyLock<PathBuf> =
-    LazyLock::new(|| ROOT.join("fluxer_gateway/config"));
+    LazyLock::new(|| ROOT.join("makarincord_gateway/config"));
 
 pub fn ensure_state_dirs() -> Result<()> {
     for path in [

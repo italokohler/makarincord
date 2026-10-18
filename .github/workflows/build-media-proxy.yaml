@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
       image: fluxer-media-proxy
-      dockerfile: fluxer_media_proxy/Dockerfile
+      dockerfile: makarincord_media_proxy/Dockerfile
       build-version: ${{ inputs['build-version'] }}

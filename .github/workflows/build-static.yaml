@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
       image: fluxer-static
-      dockerfile: fluxer_static/Dockerfile
+      dockerfile: makarincord_static/Dockerfile
       build-version: ${{ inputs['build-version'] }}

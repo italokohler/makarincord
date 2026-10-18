@@ -77,23 +77,23 @@ pub async fn run_ci(args: CiArgs) -> Result<()> {
             )
         }
         CiStep::GatewayFmt => {
-            run_gateway_step(&root.join("fluxer_gateway"), GatewayStep::FmtCheck, "test")
+            run_gateway_step(&root.join("makarincord_gateway"), GatewayStep::FmtCheck, "test")
         }
         CiStep::GatewayCompile => {
-            run_gateway_step(&root.join("fluxer_gateway"), GatewayStep::Compile, "test")
+            run_gateway_step(&root.join("makarincord_gateway"), GatewayStep::Compile, "test")
         }
         CiStep::GatewayDialyzer => {
-            run_gateway_step(&root.join("fluxer_gateway"), GatewayStep::Dialyzer, "test")
+            run_gateway_step(&root.join("makarincord_gateway"), GatewayStep::Dialyzer, "test")
         }
         CiStep::GatewayEunit => {
-            run_gateway_step(&root.join("fluxer_gateway"), GatewayStep::Eunit, "test")
+            run_gateway_step(&root.join("makarincord_gateway"), GatewayStep::Eunit, "test")
         }
     }
 }
 
 fn ensure_desktop_build_channel_file(root: &Path) -> Result<()> {
     let channel = env::var("BUILD_CHANNEL").unwrap_or_else(|_| "stable".to_string());
-    write_build_channel_file(&root.join("fluxer_desktop"), &channel)
+    write_build_channel_file(&root.join("makarincord_desktop"), &channel)
 }
 
 fn run_app_test_artifact_generators(root: &Path, wasm: AppWasm) -> Result<()> {
@@ -114,7 +114,7 @@ fn run_app_test_artifact_generators(root: &Path, wasm: AppWasm) -> Result<()> {
 }
 
 fn app_wasm_artifacts(root: &Path) -> Vec<PathBuf> {
-    let app_dir = root.join("fluxer_app");
+    let app_dir = root.join("makarincord_app");
     vec![
         app_dir.join("pkgs/libfluxcore/libfluxcore.js"),
         app_dir.join("pkgs/libfluxcore/libfluxcore.d.ts"),
@@ -323,7 +323,7 @@ mod tests {
 
         assert_eq!(
             missing_app_wasm_artifact(root),
-            Some(root.join("fluxer_app/pkgs/libfluxcore/libfluxcore.js"))
+            Some(root.join("makarincord_app/pkgs/libfluxcore/libfluxcore.js"))
         );
 
         for path in app_wasm_artifacts(root) {
@@ -349,69 +349,69 @@ mod tests {
 
         for (name, title, dockerfile) in [
             (
-                "fluxer_admin",
+                "makarincord_admin",
                 "fluxer-admin",
-                include_str!("../../../fluxer_admin/Dockerfile"),
+                include_str!("../../../makarincord_admin/Dockerfile"),
             ),
             (
-                "fluxer_api",
+                "makarincord_api",
                 "fluxer-api",
-                include_str!("../../../fluxer_api/Dockerfile"),
+                include_str!("../../../makarincord_api/Dockerfile"),
             ),
             (
-                "fluxer_app_proxy",
+                "makarincord_app_proxy",
                 "fluxer-app-proxy",
-                include_str!("../../../fluxer_app_proxy/Dockerfile"),
+                include_str!("../../../makarincord_app_proxy/Dockerfile"),
             ),
             (
-                "fluxer_docs",
+                "makarincord_docs",
                 "fluxer-docs",
-                include_str!("../../../fluxer_docs/Dockerfile"),
+                include_str!("../../../makarincord_docs/Dockerfile"),
             ),
             (
-                "fluxer_gateway",
+                "makarincord_gateway",
                 "fluxer-gateway",
-                include_str!("../../../fluxer_gateway/Dockerfile"),
+                include_str!("../../../makarincord_gateway/Dockerfile"),
             ),
             (
-                "fluxer_gifs",
+                "makarincord_gifs",
                 "fluxer-gifs",
-                include_str!("../../../fluxer_gifs/Dockerfile"),
+                include_str!("../../../makarincord_gifs/Dockerfile"),
             ),
             (
-                "fluxer_media_proxy",
+                "makarincord_media_proxy",
                 "fluxer-media-proxy",
-                include_str!("../../../fluxer_media_proxy/Dockerfile"),
+                include_str!("../../../makarincord_media_proxy/Dockerfile"),
             ),
             (
-                "fluxer_messages",
+                "makarincord_messages",
                 "fluxer-messages",
-                include_str!("../../../fluxer_messages/Dockerfile"),
+                include_str!("../../../makarincord_messages/Dockerfile"),
             ),
             (
-                "fluxer_push",
+                "makarincord_push",
                 "fluxer-push",
-                include_str!("../../../fluxer_push/Dockerfile"),
+                include_str!("../../../makarincord_push/Dockerfile"),
             ),
             (
-                "fluxer_snowflakes",
+                "makarincord_snowflakes",
                 "fluxer-snowflakes",
-                include_str!("../../../fluxer_snowflakes/Dockerfile"),
+                include_str!("../../../makarincord_snowflakes/Dockerfile"),
             ),
             (
-                "fluxer_static",
+                "makarincord_static",
                 "fluxer-static",
-                include_str!("../../../fluxer_static/Dockerfile"),
+                include_str!("../../../makarincord_static/Dockerfile"),
             ),
             (
-                "fluxer_unfurl",
+                "makarincord_unfurl",
                 "fluxer-unfurl",
-                include_str!("../../../fluxer_unfurl/Dockerfile"),
+                include_str!("../../../makarincord_unfurl/Dockerfile"),
             ),
             (
-                "fluxer_users",
+                "makarincord_users",
                 "fluxer-users",
-                include_str!("../../../fluxer_users/Dockerfile"),
+                include_str!("../../../makarincord_users/Dockerfile"),
             ),
         ] {
             assert!(
@@ -427,7 +427,7 @@ mod tests {
                 "{name}/Dockerfile must declare the title {title}"
             );
             let licenses = match name {
-                "fluxer_static" => "AGPL-3.0-or-later AND CC-BY-SA-4.0 AND CC-BY-4.0",
+                "makarincord_static" => "AGPL-3.0-or-later AND CC-BY-SA-4.0 AND CC-BY-4.0",
                 _ => "AGPL-3.0-or-later",
             };
             assert!(

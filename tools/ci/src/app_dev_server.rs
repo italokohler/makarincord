@@ -625,7 +625,7 @@ mod tests {
 
     #[test]
     fn wasm_inputs_cover_the_libfluxwebp_sources_and_headers() {
-        let app_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fluxer_app");
+        let app_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../makarincord_app");
         let inputs = gather_wasm_inputs(&app_dir).expect("gather wasm inputs");
 
         for key in [

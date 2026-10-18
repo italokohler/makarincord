@@ -7,7 +7,7 @@
 		"lineWidth": 120,
 		"lineEnding": "lf",
 		"bracketSpacing": false,
-		"includes": ["**", "!**/fluxer_app/src/features/theme/variables/ThemeVariableManifest.ts"]
+		"includes": ["**", "!**/makarincord_app/src/features/theme/variables/ThemeVariableManifest.ts"]
 	},
 	"javascript": {
 		"formatter": {
@@ -129,22 +129,22 @@
 	"assist": {"actions": {"source": {"organizeImports": "on"}}},
 	"overrides": [
 		{
-			"includes": ["fluxer_app/src/**/*.tsx"],
+			"includes": ["makarincord_app/src/**/*.tsx"],
 			"plugins": ["./tools/lint/no-adjacent-jsx-text.grit"]
 		},
 		{
-			"includes": ["fluxer_docs/scripts/VerifyDocsCoverage.ts"],
+			"includes": ["makarincord_docs/scripts/VerifyDocsCoverage.ts"],
 			"linter": {"rules": {"suspicious": {"noTemplateCurlyInString": "off"}}}
 		},
 		{
 			"includes": [
-				"fluxer_app/src/features/i18n/components/AppI18nProvider.tsx",
-				"fluxer_app/src/features/i18n/components/AppI18nProvider.test.tsx"
+				"makarincord_app/src/features/i18n/components/AppI18nProvider.tsx",
+				"makarincord_app/src/features/i18n/components/AppI18nProvider.test.tsx"
 			],
 			"linter": {"rules": {"style": {"noRestrictedImports": "off"}}}
 		},
 		{
-			"includes": ["fluxer_app/src/**/*.worklet.js"],
+			"includes": ["makarincord_app/src/**/*.worklet.js"],
 			"javascript": {"globals": ["AudioWorkletProcessor", "registerProcessor", "sampleRate", "currentTime"]}
 		},
 		{
@@ -163,14 +163,14 @@
 			"**",
 			"!**/.git",
 			"!**/app.css",
-			"!fluxer_admin/public/static/app.css",
+			"!makarincord_admin/public/static/app.css",
 			"!**/build",
-			"fluxer_app/scripts/build",
+			"makarincord_app/scripts/build",
 			"!**/dist",
-			"!**/fluxer_app/src/media/data/emojis.json",
-			"!**/fluxer_app/src/features/i18n/locales/*/messages.js",
-			"!**/fluxer_app/src/features/i18n/locales/*/messages.mjs",
-			"!**/fluxer_app/src/env.d.ts",
+			"!**/makarincord_app/src/media/data/emojis.json",
+			"!**/makarincord_app/src/features/i18n/locales/*/messages.js",
+			"!**/makarincord_app/src/features/i18n/locales/*/messages.mjs",
+			"!**/makarincord_app/src/env.d.ts",
 			"!**/*.generated.*",
 			"!**/*.pb.*",
 			"!**/*_pb.*",
@@ -179,15 +179,15 @@
 			"!**/tailwind.css",
 			"!**/*.html",
 			"!**/*.module.css.d.ts",
-			"!**/fluxer_app/src/features/ui/components/SVGMasks.tsx",
-			"!fluxer_static",
+			"!**/makarincord_app/src/features/ui/components/SVGMasks.tsx",
+			"!makarincord_static",
 			"!packages/fonts",
-			"!fluxer_admin/static/htmx.min.js",
-			"!fluxer_api/src/api/openapi/openapi.json",
-			"!fluxer_api/pkgs/email/src/email_i18n/locales",
-			"!fluxer_api/pkgs/email/src/email_i18n/weblate",
-			"!fluxer_api/src/api/content_i18n/locales",
-			"!fluxer_api/src/api/content_i18n/weblate",
+			"!makarincord_admin/static/htmx.min.js",
+			"!makarincord_api/src/api/openapi/openapi.json",
+			"!makarincord_api/pkgs/email/src/email_i18n/locales",
+			"!makarincord_api/pkgs/email/src/email_i18n/weblate",
+			"!makarincord_api/src/api/content_i18n/locales",
+			"!makarincord_api/src/api/content_i18n/weblate",
 			"!packages/errors/src/i18n/locales",
 			"!packages/errors/src/i18n/weblate",
 			"!**/auto-i18n-reviewed-unchanged.json"

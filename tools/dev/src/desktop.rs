@@ -19,7 +19,7 @@ const DEVELOPMENT_BUNDLE_ID: &str = "app.fluxer.development";
 const DEVELOPMENT_PROTOCOL_SCHEME: &str = "fluxer-development";
 const PRODUCTION_PROTOCOL_SCHEME: &str = "fluxer";
 const RENDERER_BUILD_VERSION: &str = "dev";
-const RENDERER_SOURCE_PATHS: &[&str] = &["fluxer_app", "packages", "pnpm-lock.yaml"];
+const RENDERER_SOURCE_PATHS: &[&str] = &["makarincord_app", "packages", "pnpm-lock.yaml"];
 const RENDERER_FORBIDDEN_ENTRIES: &[&str] = &["sw.js", "sw.js.map"];
 const DEVELOPER_ID_PREFIX: &str = "Developer ID Application: ";
 const APP_QUIT_TIMEOUT: Duration = Duration::from_secs(15);
@@ -323,7 +323,7 @@ fn ensure_renderer(rebuild: bool) -> Result<(PathBuf, String)> {
             ..RunOptions::default()
         },
     )?;
-    let app_dist = ROOT.join("fluxer_app/dist");
+    let app_dist = ROOT.join("makarincord_app/dist");
     verify_renderer_tree(&app_dist)?;
     remove_path(&stamp_path)?;
     remove_path(&cache)?;
@@ -1165,10 +1165,10 @@ mod tests {
     #[test]
     fn dev_electron_paths_point_inside_the_dev_bundle() {
         assert!(dev_electron_binary_path().ends_with(
-            "fluxer_desktop/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron"
+            "makarincord_desktop/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron"
         ));
         assert!(dev_electron_info_plist_path().ends_with(
-            "fluxer_desktop/node_modules/electron/dist/Electron.app/Contents/Info.plist"
+            "makarincord_desktop/node_modules/electron/dist/Electron.app/Contents/Info.plist"
         ));
     }
 
