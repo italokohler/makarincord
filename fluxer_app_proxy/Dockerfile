@@ -1,0 +1,202 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+ARG BUILD_VERSION=""
+ARG PUBLIC_ASSET_BASE_URL=""
+ARG BUNDLE_LOCAL_ASSETS="true"
+ARG APP_ASSETS_REF=app-assets
+ARG APP_ASSETS_PLATFORM=$BUILDPLATFORM
+
+# ---------- Stage 1: Build the SPA (fluxer_app) ----------
+FROM node:26-trixie-slim AS app-build
+
+ARG BUILD_VERSION
+ARG PUBLIC_ASSET_BASE_URL
+
+WORKDIR /usr/src/app
+
+RUN npm install -g pnpm@11.27.0
+
+
+# Some cloud egress policies block plain HTTP while allowing HTTPS.
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/debian.sources \
+	&& apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false update \
+	&& apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false install -y --no-install-recommends ca-certificates \
+	&& apt-get update && apt-get install -y --no-install-recommends \
+	curl ca-certificates build-essential clang \
+	&& rm -rf /var/lib/apt/lists/*
+
+ARG RUST_VERSION=1.98.1
+ENV RUSTUP_HOME=/usr/local/rustup \
+	CARGO_HOME=/usr/local/cargo \
+	PATH=/usr/local/cargo/bin:$PATH
+RUN set -eux; \
+	curl --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs \
+		| sh -s -- -y --no-modify-path --profile minimal --default-toolchain "${RUST_VERSION}" \
+			--target wasm32-unknown-unknown; \
+	rustc --version; cargo --version
+
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY patches/ ./patches/
+COPY fluxer_app/package.json ./fluxer_app/
+COPY packages/constants/package.json ./packages/constants/
+COPY packages/date_utils/package.json ./packages/date_utils/
+COPY packages/desktop_ipc/package.json ./packages/desktop_ipc/
+COPY packages/geo_utils/package.json ./packages/geo_utils/
+COPY packages/instance_bootstrap/package.json ./packages/instance_bootstrap/
+COPY packages/limits/package.json ./packages/limits/
+COPY packages/schema/package.json ./packages/schema/
+COPY packages/snowflake/package.json ./packages/snowflake/
+COPY packages/voice_engine_v2/package.json ./packages/voice_engine_v2/
+COPY fluxer_app/pkgs/list_utils/package.json ./fluxer_app/pkgs/list_utils/
+COPY fluxer_app/pkgs/number_utils/package.json ./fluxer_app/pkgs/number_utils/
+COPY fluxer_app/pkgs/livekit-client/package.json ./fluxer_app/pkgs/livekit-client/
+
+RUN pnpm install --frozen-lockfile --filter fluxer_app...
+
+COPY tsconfigs ./tsconfigs
+COPY packages/constants/ ./packages/constants/
+COPY packages/date_utils/ ./packages/date_utils/
+COPY packages/desktop_ipc/ ./packages/desktop_ipc/
+COPY packages/geo_utils/ ./packages/geo_utils/
+COPY packages/instance_bootstrap/ ./packages/instance_bootstrap/
+COPY packages/limits/ ./packages/limits/
+COPY packages/schema/ ./packages/schema/
+COPY packages/snowflake/ ./packages/snowflake/
+COPY packages/voice_engine_v2/ ./packages/voice_engine_v2/
+COPY packages/fonts/css/ ./packages/fonts/css/
+COPY packages/fonts/files/ ./packages/fonts/files/
+COPY packages/fonts/NOTICE.md packages/fonts/LICENSE-IBM-PLEX.txt ./packages/fonts/
+COPY packages/markdown_parser/rust/Cargo.toml ./packages/markdown_parser/rust/
+COPY packages/markdown_parser/rust/.cargo/ ./packages/markdown_parser/rust/.cargo/
+COPY packages/markdown_parser/rust/benches/parser.rs ./packages/markdown_parser/rust/benches/
+COPY packages/markdown_parser/rust/src/ ./packages/markdown_parser/rust/src/
+COPY tools/ci/ ./tools/ci/
+RUN find tools/ci -type f -name '*.sh' -exec sed -i 's/\r$//' {} + \
+	&& chmod +x tools/ci/*.sh 2>/dev/null || true
+COPY fluxer_app/index.html fluxer_app/lingui.config.js fluxer_app/package.json fluxer_app/postcss.config.js fluxer_app/rspack.config.mjs fluxer_app/tsconfig.base.json fluxer_app/tsconfig.json ./fluxer_app/
+COPY fluxer_app/pkgs/list_utils/ ./fluxer_app/pkgs/list_utils/
+COPY fluxer_app/pkgs/number_utils/ ./fluxer_app/pkgs/number_utils/
+COPY fluxer_app/pkgs/livekit-client/ ./fluxer_app/pkgs/livekit-client/
+COPY fluxer_app/rust/ ./fluxer_app/rust/
+COPY fluxer_app/scripts/ ./fluxer_app/scripts/
+RUN find fluxer_app/scripts -type f -name '*.sh' -exec sed -i 's/\r$//' {} + \
+	&& chmod +x fluxer_app/scripts/*.sh 2>/dev/null || true
+COPY fluxer_app/src/ ./fluxer_app/src/
+
+ENV BUILD_VERSION=${BUILD_VERSION} \
+	PUBLIC_ASSET_BASE_URL=${PUBLIC_ASSET_BASE_URL}
+
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+	--mount=type=cache,target=/usr/local/cargo/git \
+	cd fluxer_app && pnpm build
+
+# ---------- Stage 2: The one canonical asset tree every architecture serves ----------
+# Stage for CI to extract the full dist (docker bake app-dist target)
+FROM alpine:3.24 AS app-dist
+COPY --from=app-build /usr/src/app/fluxer_app/dist /dist
+
+FROM alpine:3.24 AS app-assets
+ARG BUNDLE_LOCAL_ASSETS=true
+ARG PUBLIC_ASSET_BASE_URL=""
+COPY fluxer_app_proxy/scripts/precompress_assets.sh /usr/local/bin/precompress_assets.sh
+RUN apk add --no-cache brotli
+RUN sed -i 's/\r$//' /usr/local/bin/precompress_assets.sh \
+	&& chmod +x /usr/local/bin/precompress_assets.sh
+RUN --mount=type=bind,from=app-dist,source=/dist,target=/dist \
+	cp -a /dist /assets \
+	&& if [ "${BUNDLE_LOCAL_ASSETS}" != "true" ]; then \
+		case "${PUBLIC_ASSET_BASE_URL}" in \
+		http://* | https://*) ;; \
+		*) \
+			echo "BUNDLE_LOCAL_ASSETS=false requires an absolute PUBLIC_ASSET_BASE_URL." >&2; \
+			echo "Without one, index.html links same-origin /assets/* that this image would no longer contain." >&2; \
+			exit 1 \
+			;; \
+		esac; \
+		find /assets/assets -type f ! -name 'fonts-*.txt' -delete; \
+	fi \
+	&& /usr/local/bin/precompress_assets.sh /assets
+
+FROM --platform=${APP_ASSETS_PLATFORM} ${APP_ASSETS_REF} AS app-static
+
+# ---------- Stage 3: Build the Rust proxy binary ----------
+FROM rust:1-trixie AS rust-builder
+
+
+WORKDIR /usr/src/app
+
+COPY Cargo.lock ./
+COPY fluxer_common/ fluxer_common/
+COPY fluxer_app_proxy/ fluxer_app_proxy/
+
+RUN printf '%s\n' \
+	'[workspace]' \
+	'members = [' \
+	'    "fluxer_app_proxy",' \
+	'    "fluxer_common",' \
+	']' \
+	'resolver = "2"' \
+	'' \
+	'[workspace.package]' \
+	'edition = "2024"' \
+	'license = "AGPL-3.0-or-later"' \
+	'' \
+	'[profile.release]' \
+	'lto = "fat"' \
+	'codegen-units = 1' \
+	'strip = "symbols"' \
+	> Cargo.toml
+
+RUN cargo build --release -p fluxer_app_proxy \
+	&& cp target/release/fluxer_app_proxy /usr/local/bin/fluxer-app-proxy
+
+# ---------- Stage 4: Runtime ----------
+FROM debian:trixie-slim
+
+ARG BUILD_VERSION=""
+ARG PUBLIC_ASSET_BASE_URL=""
+ARG FLUXER_SELF_HOSTED="false"
+ARG SOURCE_SHA=""
+ARG SOURCE_DATE=""
+
+LABEL org.opencontainers.image.title="fluxer-app-proxy"
+LABEL org.opencontainers.image.description="Fluxer web app and edge proxy"
+LABEL org.opencontainers.image.licenses="AGPL-3.0-or-later"
+LABEL org.opencontainers.image.vendor="Fluxer"
+LABEL org.opencontainers.image.url="https://fluxer.app"
+LABEL org.opencontainers.image.documentation="https://docs.fluxer.app"
+LABEL org.opencontainers.image.source="https://github.com/fluxerapp/fluxer"
+LABEL org.opencontainers.image.version="${BUILD_VERSION}"
+LABEL org.opencontainers.image.revision="${SOURCE_SHA}"
+LABEL org.opencontainers.image.created="${SOURCE_DATE}"
+LABEL app.fluxer.build-version="${BUILD_VERSION}"
+
+WORKDIR /srv/app
+
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/debian.sources \
+	&& apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false update \
+	&& apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false install -y --no-install-recommends ca-certificates \
+	&& apt-get update && apt-get install -y --no-install-recommends \
+	ca-certificates curl libjemalloc2 \
+	&& rm -rf /var/lib/apt/lists/*
+
+COPY --from=rust-builder /usr/local/bin/fluxer-app-proxy /usr/local/bin/fluxer-app-proxy
+COPY --from=app-static /assets ./static/
+
+ENV BUILD_VERSION="${BUILD_VERSION}"
+ENV FLUXER_SELF_HOSTED="${FLUXER_SELF_HOSTED}"
+ENV FLUXER_STATIC_CDN_ENDPOINT="${PUBLIC_ASSET_BASE_URL}"
+ENV FLUXER_APP_PROXY_HOST="0.0.0.0"
+ENV FLUXER_APP_PROXY_PORT="8080"
+ENV LD_PRELOAD=libjemalloc.so.2
+ENV MALLOC_CONF="background_thread:true,metadata_thp:auto,dirty_decay_ms:5000,muzzy_decay_ms:5000"
+
+USER 65532:65532
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+	CMD curl -f http://127.0.0.1:${FLUXER_APP_PROXY_PORT:-8080}/_ready || exit 1
+
+CMD ["/usr/local/bin/fluxer-app-proxy"]
